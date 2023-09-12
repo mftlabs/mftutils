@@ -18,12 +18,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build send2sftp Linux
-      run: ls -altr && mkdir -p distro && cd send2sftp && ls -altr && go mod tidy  && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp && cp config.json ../distro/config.json
+      run: ls -altr && mkdir -p distro && cd send2sftp && ls -altr && go mod tidy  && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp && cp config.json ../distro/config.json && ../distro/send2sftp -v && cp version.txt ../distro/version.txt
       env:
         GOOS: linux
         GOARCH: amd64
     - name: Build Archives
-      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-linux.zip send2sftp config.json
+      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-linux.zip send2sftp config.json version.txt
     - name: Build send2sftp Windows
       run: ls -altr &&  mkdir -p distro && cd send2sftp && ls -altr &&  go mod tidy  &&go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe
       env:
@@ -31,15 +31,15 @@ jobs:
         GOARCH: amd64
 
     - name: Build Archives windows
-      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-windows.zip send2sftp.exe config.json
+      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-windows.zip send2sftp.exe config.json version.txt
     - name: Build send2sftp MAC
-      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp && cp config.json ../mac_distro/config.json
+      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp && cp config.json ../mac_distro/config.json && cp version.txt ../mac_distro/version.txt
       env:
         GOOS: darwin
         GOARCH: arm64
 
     - name: Build Archives for MAC
-      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-arm64.zip send2sftp config.json
+      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-arm64.zip send2sftp config.json version.txt
     - name: Build send2sftp MAC
       run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp
       env:
@@ -47,7 +47,7 @@ jobs:
         GOARCH: amd64
 
     - name: Build Archives for MAC
-      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-amd64.zip send2sftp config.json
+      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-amd64.zip send2sftp config.json version.txt
 
     - name: version
       run: echo "::set-output name=version::$(./distro/send2sftp -v)"

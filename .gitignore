@@ -21,3 +21,5 @@
 go.work
 test*
 .idea/**
+send2sftp/send2sftp
+send2sftp/version.txt

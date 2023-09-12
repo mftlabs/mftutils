@@ -46,9 +46,41 @@ func main() {
 	flag.Parse()
 
 	if version {
-		curdate := time.Now().Format("20060102")
-		curtime := time.Now().Format("150405")
-		fmt.Println(curdate + "-" + curtime)
+		_, err := os.Stat("./version.txt")
+		var f *os.File
+		var newfile bool = false
+		if err != nil {
+			f, err = os.Create("./version.txt")
+			newfile = true
+		} else {
+			f, err = os.OpenFile("./version.txt", os.O_RDWR, 0644)
+		}
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1004)
+		}
+		defer f.Close()
+		if newfile {
+			curdate := time.Now().Format("20060102")
+			curtime := time.Now().Format("150405")
+			ver := "v" + curdate + curtime
+			_, err = f.WriteString(ver)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1005)
+			}
+			fmt.Printf("%v", ver)
+			f.Close()
+		} else {
+			buf := make([]byte, 100)
+			_, err = f.Read(buf)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1006)
+			}
+			fmt.Printf("%v", string(buf))
+			f.Close()
+		}
 		os.Exit(0)
 	}
 
