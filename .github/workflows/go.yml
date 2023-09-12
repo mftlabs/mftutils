@@ -18,14 +18,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build send2sftp Linux
-      run: ls -altr && go mod tidy  && mkdir -p distro && cd send2sftp && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp
+      run: ls -altr && mkdir -p distro && cd send2sftp && ls -altr && go mod tidy  && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp
       env:
         GOOS: linux
         GOARCH: amd64
     - name: Build Archives
       run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-linux.zip send2sftp
     - name: Build send2sftp Windows
-      run: ls -altr && go mod tidy  && mkdir -p distro && cd send2sftp && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe
+      run: ls -altr &&  mkdir -p distro && cd send2sftp && ls -altr &&  go mod tidy  &&go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe
       env:
         GOOS: windows
         GOARCH: amd64
