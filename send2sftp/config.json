@@ -1,0 +1,15 @@
+{
+  "profiles": [
+    {
+      "profile": "default",
+      "sftp_config": {
+        "host": "localhost",
+        "port": 25022,
+        "username": "user001",
+        "password": "AyFG98x0G!lO",
+        "remote_path": "/",
+        "cleanup_on_upload": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.21
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build send2sftp Linux
+      run: ls -altr && go mod tidy  && mkdir -p distro && cd send2sftp && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp
+      env:
+        GOOS: linux
+        GOARCH: amd64
+    - name: Build Archives
+      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-linux.zip send2sftp
+    - name: Build send2sftp Windows
+      run: ls -altr && go mod tidy  && mkdir -p distro && cd send2sftp && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe
+      env:
+        GOOS: windows
+        GOARCH: amd64
+
+    - name: Build Archives windows
+      run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-windows.zip send2sftp.exe
+    - name: Build send2sftp MAC
+      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp
+      env:
+        GOOS: darwin
+        GOARCH: arm64
+
+    - name: Build Archives for MAC
+      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-arm64.zip send2sftp
+    - name: Build send2sftp MAC
+      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp
+      env:
+        GOOS: darwin
+        GOARCH: amd64
+
+    - name: Build Archives for MAC
+      run: ls -altr && cd ./mac_distro && ls -altr && zip -r mftutils-darwin-amd64.zip send2sftp
+
+    - name: version
+      run: echo "::set-output name=version::$(./distro/send2sftp -v)"
+      id: version
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: false
+        release_name: ${{ steps.version.outputs.version }}
+        tag_name: ${{ steps.version.outputs.version }}
+        body_path: NOTES.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: upload linux artifact mftutils-linux
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./distro/mftutils-linux.zip
+        asset_name: mftutils-linux-${{ steps.version.outputs.version }}.zip
+        asset_content_type: application/octet-stream
+    - name: upload windows artifact mftutils-windows
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./distro/mftutils-windows.zip
+        asset_name: mftutils-windows-${{ steps.version.outputs.version }}.zip
+        asset_content_type: application/octet-stream
+    - name: upload mac artifact mftutils-darwin-arm64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./mac_distro/mftutils-darwin-arm64.zip
+        asset_name: mftutils-darwin-arm64-${{ steps.version.outputs.version }}.zip
+        asset_content_type: application/octet-stream
+    - name: upload mac artifact mftutils-darwin-amd64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./mac_distro/mftutils-darwin-amd64.zip
+        asset_name: mftutils-darwin-amd64-${{ steps.version.outputs.version }}.zip
+        asset_content_type: application/octet-stream
+
