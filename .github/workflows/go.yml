@@ -18,14 +18,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build send2sftp Linux
-      run: ls -altr && mkdir -p distro && cd send2sftp && ls -altr && go mod tidy  && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp && cp config.json ../distro/config.json ../distro
+      run: ls -altr && mkdir -p distro && cd send2sftp && ls -altr && go mod tidy  && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp  && chmod +x ../distro/send2sftp && cp config.json ../distro/config.json
       env:
         GOOS: linux
         GOARCH: amd64
     - name: Build Archives
       run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-linux.zip send2sftp config.json
     - name: Build send2sftp Windows
-      run: ls -altr &&  mkdir -p distro && cd send2sftp && ls -altr &&  go mod tidy  &&go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe && cp config.json ../distro/config.json ../distro
+      run: ls -altr &&  mkdir -p distro && cd send2sftp && ls -altr &&  go mod tidy  &&go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../distro/send2sftp.exe
       env:
         GOOS: windows
         GOARCH: amd64
@@ -33,7 +33,7 @@ jobs:
     - name: Build Archives windows
       run: ls -altr && cd ./distro && ls -altr && zip -r mftutils-windows.zip send2sftp.exe config.json
     - name: Build send2sftp MAC
-      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp && cp config.json ../distro/config.json ../mac_distro
+      run: ls -altr  && mkdir -p mac_distro && cd send2sftp && go mod tidy && ls -altr && go build -ldflags="-s -w" -gcflags=-trimpath=x/y -o ../mac_distro/send2sftp && cp config.json ../mac_distro/config.json
       env:
         GOOS: darwin
         GOARCH: arm64
