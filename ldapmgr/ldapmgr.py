@@ -98,7 +98,7 @@ def main():
     parser.add_argument("-o", "--output", help = "Output File", required=True)
     parser.add_argument("-a", "--add", help = "Add new entry",action=argparse.BooleanOptionalAction, default = False)
     parser.add_argument("-s", "--search", help = "Search for entries",action=argparse.BooleanOptionalAction, default = False)
-    parser.add_argument("-u", "--ou", help = "Arganizatioin unit")
+    parser.add_argument("-u", "--ou", help = "Organization unit")
     args = parser.parse_args()
     print(args.config, args.data)
     app = LdapManager(args.config, args.data, args.output)
