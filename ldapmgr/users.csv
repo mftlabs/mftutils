@@ -1,0 +1,4 @@
+"username","usertype","email","sshkey"
+user0001,int,user001@testing.com,ssh-rsa AAAAB3NzaC1yc2EAAAA
+user0002,int,user002@testing.com,ssh-rsa AAAAB3NzaC1yc2EAAAA
+user0003,ext,user003@testing.com,ssh-rsa AAAAB3NzaC1yc2EAAAA

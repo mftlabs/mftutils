@@ -1,0 +1,13 @@
+{
+  "connection": "ldap://localhost:41389",
+  "base_dn": "cn=admin,dc=hub4edi,dc=dev",
+  "bind_password": "aBcD1234",
+  "login_shell": "/bin/bash",
+  "home_directory": "/home/{}",
+  "uid_number": 10000,
+  "gid_number": 10000,
+  "search_dn": "ou=users,dc=hub4edi,dc=dev",
+  "user_dn": "uid={},ou={},ou=users,dc=hub4edi,dc=dev",
+
+  "object_class": ["person","inetOrgPerson","posixAccount","top","organizationalPerson"]
+}
