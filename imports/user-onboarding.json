@@ -1,0 +1,97 @@
+[{
+  "name": "User Onboarding",
+  "key": "user_onboarding",
+  "schema": {
+    "title": "User Onboarding",
+    "description": "A form to register a new user",
+    "type": "object",
+    "required": [
+      "firstname",
+      "lastname",
+      "username",
+      "email",
+      "phoneNumber",
+      "authtype"
+    ],
+    "properties": {
+      "firstname": {
+        "type": "string",
+        "title": "First Name"
+      },
+      "lastname": {
+        "type": "string",
+        "title": "Last Name"
+      },
+      "username": {
+        "type": "string",
+        "title": "Username"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "title": "Email"
+      },
+      "phoneNumber": {
+        "type": "string",
+        "title": "Phone Number"
+      },
+      "authtype": {
+        "type": "string",
+        "title": "Authentication Type",
+        "enum": ["External", "Local"]
+      }
+    }
+  },
+  "ui_schema": {
+    "ui:order": [
+      "firstname",
+      "lastname",
+      "username",
+      "email",
+      "phoneNumber",
+      "authtype",
+      "userType"
+    ],
+    "firstname": {
+      "ui:placeholder": "Enter First Name",
+      "ui:autofocus": true,
+      "ui:help": "Please enter your first name."
+    },
+    "lastname": {
+      "ui:placeholder": "Enter Last Name",
+      "ui:help": "Please enter your last name."
+    },
+    "username": {
+      "ui:placeholder": "Enter Username"
+    },
+    "email": {
+      "ui:widget": "email",
+      "ui:placeholder": "Enter Email Address"
+    },
+    "phoneNumber": {
+      "ui:placeholder": "Enter Phone Number",
+      "ui:help": "Please enter your phone number with country code."
+    },
+    "authtype": {
+      "ui:widget": "radio",
+      "ui:help": "Select the type of authentication."
+    }
+  },
+  "initial_state": {
+    "firstname": "",
+    "lastname": "",
+    "username": "",
+    "email": "",
+    "phoneNumber": "",
+    "authtype": "External"
+  },
+  "column_order": [
+    "firstname",
+    "lastname",
+    "username",
+    "email",
+    "phoneNumber",
+    "authtype"
+  ]
+}
+]
