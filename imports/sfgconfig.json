@@ -1,0 +1,137 @@
+
+[
+  {
+    "name": "SFG Action Configuration",
+    "key": "actionconfig-sfg_configuration",
+    "schema": {
+      "title": "SFG Configuration",
+      "description": "A form to onboard a new user to the system",
+      "type": "object",
+      "required": [
+        "configname",
+        "configkey",
+        "apihost",
+        "apiport",
+        "apiusername",
+        "apipassword",
+        "scheme",
+        "community",
+        "routingrule"
+      ],
+      "properties": {
+        "configname": {
+          "type": "string",
+          "title": "Name of Configuration"
+        },
+        "configkey": {
+          "type": "string",
+          "title": "Configuration Key"
+        },
+        "apihost": {
+          "type": "string",
+          "title": "API Host"
+        },
+        "apiport": {
+          "type": "integer",
+          "title": "API Port"
+        },
+        "apiusername": {
+          "type": "string",
+          "title": "API Username"
+        },
+        "apipassword": {
+          "type": "string",
+          "title": "API Password",
+          "format": "password"
+        },
+        "scheme": {
+          "type": "string",
+          "title": "Scheme",
+          "enum": ["http", "https"]
+        },
+        "community": {
+          "type": "string",
+          "title": "Community"
+        },
+        "routingrule": {
+          "type": "string",
+          "title": "Routing Rule"
+        }
+      }
+    },
+    "ui_schema": {
+      "ui:order": [
+        "configname",
+        "configkey",
+        "apihost",
+        "apiport",
+        "apiusername",
+        "apipassword",
+        "scheme",
+        "community",
+        "routingrule"
+      ],
+      "configname": {
+        "ui:placeholder": "Name of Configuration",
+        "ui:autofocus": true,
+        "ui:help": "Enter a distinctive name to label this configuration."
+      },
+      "configkey": {
+        "ui:placeholder": "Configuration Key",
+        "ui:autofocus": true,
+        "ui:help": "Enter a unique alphanumeric identifier for this configuration setting."
+      },
+      "apihost": {
+        "ui:placeholder": "Enter API Host",
+        "ui:autofocus": true,
+        "ui:help": "Host address for the API."
+      },
+      "apiport": {
+        "ui:widget": "updown",
+        "ui:placeholder": "Enter API Port",
+        "ui:help": "Port number for the API."
+      },
+      "apiusername": {
+        "ui:placeholder": "Enter API Username"
+      },
+      "apipassword": {
+        "ui:widget": "password",
+        "ui:placeholder": "Enter API Password"
+      },
+      "scheme": {
+        "ui:widget": "radio",
+        "ui:help": "Choose the scheme for the API connection."
+      },
+      "community": {
+        "ui:placeholder": "Enter Community Name",
+        "ui:help": "Name of the community for routing."
+      },
+      "routingrule": {
+        "ui:placeholder": "Enter Routing Rule",
+        "ui:help": "Rule for routing the data."
+      }
+
+    },
+    "initial_state": {
+      "configname":"",
+      "configkey":"",
+      "apihost": "",
+      "apiport": "",
+      "apiusername": "",
+      "apipassword": "",
+      "scheme": "http",
+      "community": "",
+      "routingrule": ""
+    },
+    "column_order": [
+      "configname",
+      "configkey",
+      "apihost",
+      "apiport",
+      "apiusername",
+      "scheme",
+      "community",
+      "routingrule"
+    ]
+  }
+]
